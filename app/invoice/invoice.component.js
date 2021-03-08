@@ -11,39 +11,38 @@ const invoiceComponent = function () {
         invoiceComponent.initInOutLists(containerUUID);
     }
 
-    function openInvoiceFromHexModal(containerUUID) {
-        $('#modal-title').text('Transaction From Hex');
+    function openDecodeInvoiceModal(containerUUID) {
+        $('#modal-title').text('Decode BOLT 11 Invoice');
         $('#modal-confirm-button').off();
         $('#modal-extra-buttons').empty();
         $('#modal-body').empty();
 
-        $('#modal-body').append('<textarea id="txHexEdit" rows="10" style="width: 100%"></textarea>');
+        $('#modal-body').append('<textarea id="invoiceText" rows="10" style="width: 100%"></textarea>');
 
         $('#modal-confirm-button').click(function () {
             try {
-                // clean all fields first
-                const txHexValue = $('#txHexEdit').val();
-                populateTransactionFromHex(containerUUID, txHexValue)
+                const invoiceValue = $('#invoiceText').val();
+                ///dataToHTML
             } catch (err) {
                 console.error(err);
-                openToasty('Transaction From Hex', err.message, true);
+                openToasty('Decode BOLT 11 Invoice', err.message, true);
             }
         });
     }
 
-    function openInvoiceToHexModal(containerUUID) {
-        $('#modal-title').text('Transaction To Hex');
+    function openInvoiceEncodeModal(containerUUID) {
+        $('#modal-title').text('Encode BOLT 11 Invoice');
         $('#modal-confirm-button').off();
         $('#modal-extra-buttons').empty();
         $('#modal-body').empty();
 
         try {
-            const tx = invoiceComponent.htmlToData(containerUUID);
-            $('#modal-body').append('<textarea id="txHexView" readonly rows="10" style="width: 100%"></textarea>');
-            $(`#txHexView`).val(tx.toHex());
+            const invoice = invoiceComponent.htmlToData(containerUUID);
+            $('#modal-body').append('<textarea id="invoiceText" readonly rows="10" style="width: 100%"></textarea>');
+            $(`#invoiceText`).val(invoice.toHex());
         } catch (err) {
             console.error(err);
-            openToasty('Transaction to Hex', err.message, true);
+            openToasty('Encode BOLT 11 Invoice', err.message, true);
         }
 
         $('#modal-confirm-button').click(function () {});
@@ -51,8 +50,8 @@ const invoiceComponent = function () {
 
 
     return {
-        openInvoiceFromHexModal,
-        openInvoiceToHexModal,
+        openDecodeInvoiceModal,
+        openInvoiceEncodeModal,
         clear
     }
 }();
