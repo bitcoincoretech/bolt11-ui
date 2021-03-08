@@ -26,6 +26,13 @@
             // $(`#paymentCheckTabHeader`).click(function () {
             //     $(`#bottom-menu`).html(paymentComponent.createExternalMenu({ containerUUID: paymentContainerUUID }));
             // });
+
+            setTimeout(() => {
+                $('#feedbackButton').popover('show');
+                setTimeout(() => {
+                    $('#feedbackButton').popover('hide');
+                }, 10000)
+            }, 1000)
         });
     </script>
 
@@ -40,11 +47,13 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a href="#" id="feedbackButton" data-toggle="popover" data-placement="right" title="Like the App?"
+                    data-content="Give it a Star on GitHub!"></a>
             </div>
             <div class="col-sm-5">
                 <ul class="nav navbar-nav justify-content-center pt-20">
                     <li id="paymentCheckTabHeader" class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#paymentCheckTab">Invoice</a>
+                        <a class="nav-link active" data-toggle="tab" href="#paymentCheckTab">Invoice (bolt 11)</a>
                     </li>
                 </ul>
             </div>
@@ -56,7 +65,7 @@
     <div class="container background-white shadow rounded-sm pb-5 mt-5 mb-100">
         <!-- Tab panes -->
         <div class="tab-content">
- 
+
             <div id="paymentCheckTab" class="container tab-pane active"><br>
                 <div id="paymentCheckContainer">
 
