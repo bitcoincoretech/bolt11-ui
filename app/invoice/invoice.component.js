@@ -8,7 +8,6 @@ const invoiceComponent = function () {
         $(`#${parentContainerId}`).html(invoiceComponent.createNew({
             containerUUID
         }));
-        invoiceComponent.initInOutLists(containerUUID);
     }
 
     function openDecodeInvoiceModal(containerUUID) {

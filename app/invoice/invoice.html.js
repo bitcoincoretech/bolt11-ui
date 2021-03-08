@@ -56,10 +56,9 @@ invoiceComponent.createNew = function createNew(op) {
                     <td class="col-sm-2"><label>Network</label></td>
                     <td class="col-sm-3">
                         <select class="form-control" id="network-${op.containerUUID}">
-                            <option value="mainnet">Mainnet</option>
-                            <option value="testnet">Testnet</option>
-                            <option value="simnet">Simnet</option>
-                            <option value="regtest">Regtest</option>
+                            <option value="bc">Mainnet</option>
+                            <option value="tb">Testnet</option>
+                            <option value="sb">Simnet</option>
                         </select>
                     </td>
                     <td class="col-sm-7"> </td>
@@ -196,23 +195,29 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
         return;
     }
 
-    
+
     $(`#payment-request-${containerUUID}`).val(data.invoice.paymentRequest || '');
     $(`#is-complete-${containerUUID}`).val(`${data.invoice.complete || false}`);
     $(`#prefix-${containerUUID}`).val(data.invoice.prefix || '');
     $(`#words-temp-${containerUUID}`).val(data.invoice.wordsTemp || '');
-    // $(`#network-${containerUUID}`).val(data.invoice.);
-    
+
+    const network = data.invoice.network;
+    $(`#network-${containerUUID}`).val(network ? network.bech32 : 'bc');
+
     const amount = data.invoice.millisatoshis;
     $(`#amount-${containerUUID}`).val(amount === undefined ? '' : amount);
 
-    $(`#timestamp-${containerUUID}`).val(data.invoice.timestamp || 0);
+    const timestamp = data.invoice.timestamp;
+    $(`#timestamp-${containerUUID}`).val(timestamp === undefined ? '' : timestamp);
     $(`#timestamp-string-${containerUUID}`).val(data.invoice.timestampString || '');
-    $(`#expire-${containerUUID}`).val(data.invoice.timeExpireDate || 0);
+
+    const expire = data.invoice.timeExpireDate;
+    $(`#expire-${containerUUID}`).val(expire === undefined ? '' : expire);
     $(`#expire-string-${containerUUID}`).val(data.invoice.timeExpireDateString || '');
+
     $(`#payee-node-key-${containerUUID}`).val(data.invoice.payeeNodeKey || '');
     $(`#signature-${containerUUID}`).val(data.invoice.signature || '');
-    $(`#recovery-flag-${containerUUID}`).val(data.invoice.recoveryFlag || 0);
-    // $(`#xxx-${containerUUID}`).val(data.invoice.);
 
+    const recoveryFlag = data.invoice.recoveryFlag;
+    $(`#recovery-flag-${containerUUID}`).val(recoveryFlag === undefined ? '' : recoveryFlag);
 }
