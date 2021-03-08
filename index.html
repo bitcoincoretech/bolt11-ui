@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Bitcoin JS UI</title>
+    <title>BOLT UI</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,17 +15,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script src="app/util/utils-ui.js"></script>
 
+    <script src="app/invoice/invoice.component.js"></script>
+    <script src="app/invoice/invoice.html.js"></script>
 
     <script>
         $(document).ready(function () {
 
-            // const paymentContainerUUID = uuidv4();
-            // $(`#paymentCheckContainer`).html(paymentComponent.createNew({ containerUUID: paymentContainerUUID }));
-            // paymentComponent.changePaymentType(paymentContainerUUID, 'nonstandard');
-            // $(`#paymentCheckTabHeader`).click(function () {
-            //     $(`#bottom-menu`).html(paymentComponent.createExternalMenu({ containerUUID: paymentContainerUUID }));
-            // });
+            const invoiceContainerUUID = uuidv4();
+            $(`#invoiceCheckContainer`).html(invoiceComponent.createNew({ containerUUID: invoiceContainerUUID }));
+            $(`#bottom-menu`).html(invoiceComponent.createExternalMenu({ containerUUID: invoiceContainerUUID }));
+            $(`#invoiceCheckTabHeader`).click(function () {
+                $(`#bottom-menu`).html(invoiceComponent.createExternalMenu({ containerUUID: invoiceContainerUUID }));
+            });
 
             setTimeout(() => {
                 $('#feedbackButton').popover('show');
@@ -52,8 +55,8 @@
             </div>
             <div class="col-sm-5">
                 <ul class="nav navbar-nav justify-content-center pt-20">
-                    <li id="paymentCheckTabHeader" class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#paymentCheckTab">Invoice (bolt 11)</a>
+                    <li id="invoiceCheckTabHeader" class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#invoiceCheckTab">Invoice (bolt 11)</a>
                     </li>
                 </ul>
             </div>
@@ -66,8 +69,8 @@
         <!-- Tab panes -->
         <div class="tab-content">
 
-            <div id="paymentCheckTab" class="container tab-pane active"><br>
-                <div id="paymentCheckContainer">
+            <div id="invoiceCheckTab" class="container tab-pane active"><br>
+                <div id="invoiceCheckContainer">
 
                 </div>
             </div>
