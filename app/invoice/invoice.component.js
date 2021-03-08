@@ -21,7 +21,12 @@ const invoiceComponent = function () {
 
         $('#modal-confirm-button').click(function () {
             try {
-                const invoiceValue = $('#invoiceText').val();
+                const invoiceText = $('#invoiceText').val();
+                const invoice = lightningPayReq.decode(invoiceText);
+                console.log('invoice', invoice);
+                invoiceComponent.dataToHtml(containerUUID, {
+                    invoice
+                });
                 ///dataToHTML
             } catch (err) {
                 console.error(err);
