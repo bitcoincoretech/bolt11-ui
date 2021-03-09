@@ -174,14 +174,133 @@ invoiceComponent.createNew = function createNew(op) {
                             </thead>
                             <tbody>
                                 <tr class="d-flex">
-                                    <td class="col-sm-2">
-                                        <input type="number" id="tag-id-${op.containerUUID}" value="0" min="0" class="form-control asm">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-payment-hash-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-payment-hash-number-${op.containerUUID}" value="1" disabled="true" class="form-control asm">
+                                        </div>
                                     </td>
                                     <td class="col-sm-3">
-                                        <input type="text" id="tag-id-${op.containerUUID}" class="form-control asm">
+                                        <input type="text" id="tag-payment-hash-name-${op.containerUUID}" value="payment_hash"  disabled="true" class="form-control asm">
                                     </td>
                                     <td class="col-sm-7">
-                                        <textarea id="tag-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                        <textarea id="tag-payment-hash-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-description-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-description-number-${op.containerUUID}" value="13" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-description-name-${op.containerUUID}" value="description"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-description-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-payee-node-key-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-payee-node-key-number-${op.containerUUID}" value="19" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-payee-node-key-name-${op.containerUUID}" value="payee_node_key"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-payee-node-key-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-purpose-commit-hash-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-purpose-commit-hash-number-${op.containerUUID}" value="23" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-purpose-commit-hash-name-${op.containerUUID}" value="purpose_commit_hash"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-purpose-commit-hash-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-expire-time-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-expire-time-number-${op.containerUUID}" value="6" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-expire-time-name-${op.containerUUID}" value="expire_time"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-expire-time-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-min-final-cltv-expiry-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-min-final-cltv-expiry-number-${op.containerUUID}" value="24" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-min-final-cltv-expiry-name-${op.containerUUID}" value="min_final_cltv_expiry"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-min-final-cltv-expiry-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-fallback-address-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-fallback-address-number-${op.containerUUID}" value="9" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-fallback-address-name-${op.containerUUID}" value="fallback_address"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-fallback-address-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-routing-info-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-routing-info-number-${op.containerUUID}" value="3" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-routing-info-name-${op.containerUUID}" value="routing_info"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-routing-info-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
                                     </td>
                                 </tr>
                             </tbody>
