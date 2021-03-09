@@ -62,15 +62,19 @@ const invoiceComponent = function () {
     }
 
     function encodeInvoice(containerUUID) {
-        const invoiceData = invoiceComponent.htmlToData(containerUUID);
-        let encodedInvoice = lightningPayReq.encode(invoiceData);
-       
-        const privateKey = $(`#private-key-${containerUUID}`).val();
-        if (privateKey) {
-            encodedInvoice = lightningPayReq.sign(encodedInvoice, privateKey);
+        try {
+            const invoiceData = invoiceComponent.htmlToData(containerUUID);
+            let encodedInvoice = lightningPayReq.encode(invoiceData);
+
+            const privateKey = $(`#private-key-${containerUUID}`).val();
+            if (privateKey) {
+                encodedInvoice = lightningPayReq.sign(encodedInvoice, privateKey);
+            }
+            $(`#encoded-invoice-${containerUUID}`).val(encodedInvoice.paymentRequest);
+        } catch (err) {
+            console.error(err);
+            openToasty('Encode BOLT 11 Invoice', err.message, true);
         }
-        console.log('encodedInvoice', encodedInvoice);
-        $(`#encoded-invoice-${containerUUID}`).val(encodedInvoice.paymentRequest);
     }
 
     function addRoutingNode(containerUUID, data) {
