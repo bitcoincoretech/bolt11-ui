@@ -20,7 +20,7 @@ const invoiceComponent = function () {
 
         $('#modal-confirm-button').click(function () {
             try {
-                const invoiceText = $('#invoiceText').val();
+                const invoiceText = ($('#invoiceText').val() || '').trim();
                 const invoice = lightningPayReq.decode(invoiceText);
                 console.log('invoice', invoice);
                 invoiceComponent.dataToHtml(containerUUID, {
