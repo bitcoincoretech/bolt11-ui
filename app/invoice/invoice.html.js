@@ -371,7 +371,7 @@ invoiceComponent.createNew = function createNew(op) {
                                 </tr>
                                 <tr class="d-flex mr-2 mt-2">
                                     <td class="col-sm-2"> </td>
-                                    <td class="col-sm-10">
+                                    <td class="col-sm-10">                                        
                                         <table class="table table-sm border-left border-bottom shadow p-4 mb-4">
                                             <thead class="thead-light">
                                                 <tr class="d-flex">
@@ -521,14 +521,17 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
         });
     }
 
-    const routingInfo = tags.find(t => t.tagName === 'routing_info');
-    $(`#tag-routing-info-selected-${containerUUID}`).prop('checked', !!routingInfo);
-    $(`#routing-nodes-container-${containerUUID}`).empty();
-    if (routingInfo && routingInfo.data) {
-        routingInfo.data.forEach(routingNode => {
-            invoiceComponent.addRoutingNode(containerUUID, routingNode);
-        });
-    }
+    const featureBits = {};
+    invoiceComponent.FEATUREBIT_ORDER.forEach(featureBit => {
+        featureBits[featureBit] = {
+            supported: $(`#tag-feature-bits-${featureBit}-supported-${containerUUID}`).prop('checked'),
+            required: $(`#tag-feature-bits-${featureBit}-required-${containerUUID}`).prop('checked')
+        }
+    });
+    tags.push({
+        tagName: 'feature_bits',
+        data: featureBits
+    });
 
     if (tags.length) {
         invoice.tags = tags
