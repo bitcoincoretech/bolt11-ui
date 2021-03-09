@@ -361,10 +361,6 @@ invoiceComponent.createExternalMenu = function createExternalMenu(op) {
             <button type="button" onclick="invoiceComponent.openInvoiceEncodeModal('${op.containerUUID}')" class="btn btn-info ml-3 button120"
                 data-toggle="modal" data-target="#modal-dialog">Encode</button>
             </button>
-
-            <button type="button" onclick="invoiceComponent.openInvoiceSignModal('${op.containerUUID}')" class="btn btn-warning ml-3 button120"
-                data-toggle="modal" data-target="#modal-dialog">Sign</button>
-            </button>
     
             <button type="button" onclick="invoiceComponent.clear('${op.containerUUID}')" class="btn btn-secondary ml-5 button120">
                 Clear

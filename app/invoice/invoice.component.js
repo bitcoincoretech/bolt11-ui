@@ -40,10 +40,19 @@ const invoiceComponent = function () {
         $('#modal-body').empty();
 
         try {
-            const invoice = invoiceComponent.htmlToData(containerUUID);
-            $('#modal-body').append('<textarea id="invoiceText" readonly rows="10" style="width: 100%"></textarea>');
-            $(`#invoiceText`).val(JSON.stringify(invoice));
-            console.log('invoice', invoice)
+
+            $('#modal-extra-buttons').html(`<button onclick="invoiceComponent.encodeInvoice('${containerUUID}')" type="button" class="btn btn-info button120 float-left ">Encode</button>`);
+
+            const privateKeyInput = `
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Private Key</span>
+                    </div>
+                    <input id="private-key-${containerUUID}" type="password" class="form-control">                      
+                </div>
+                <textarea id="encoded-invoice-${containerUUID}" readonly rows="10" style="width: 100%" class="mt-5"></textarea>`
+            $('#modal-body').append(privateKeyInput);
+
         } catch (err) {
             console.error(err);
             openToasty('Encode BOLT 11 Invoice', err.message, true);
@@ -52,44 +61,16 @@ const invoiceComponent = function () {
         $('#modal-confirm-button').click(function () {});
     }
 
-    function openInvoiceSignModal(containerUUID) {
-        $('#modal-title').text('Sign Invoice');
-        $('#modal-confirm-button').off();
-        $('#modal-extra-buttons').empty();
-        $('#modal-body').empty();
-
-        const privateKeyUUID = uuidv4();
-
-        try {
-
-            const privateKeyInput = `
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Private Key</span>
-                        </div>
-                        <input id="private-key-${privateKeyUUID}" type="password" class="form-control">                      
-                    </div>
-`
-
-            $('#modal-body').append(privateKeyInput);
-        } catch (err) {
-            console.error(err);
-            openToasty('Sign Invoice', err.message, true);
+    function encodeInvoice(containerUUID) {
+        const invoiceData = invoiceComponent.htmlToData(containerUUID);
+        let encodedInvoice = lightningPayReq.encode(invoiceData);
+       
+        const privateKey = $(`#private-key-${containerUUID}`).val();
+        if (privateKey) {
+            encodedInvoice = lightningPayReq.sign(encodedInvoice, privateKey);
         }
-
-        $('#modal-confirm-button').click(function () {
-            try {
-                const invoiceData = invoiceComponent.htmlToData(containerUUID);
-                const privateKey = $(`#private-key-${privateKeyUUID}`).val() || '';
-                const encodedInvoice = lightningPayReq.encode(invoiceData);
-                // const decodedInvoice = lightningPayReq.encode(encodedInvoice);
-                const signature = lightningPayReq.sign(encodedInvoice, privateKey);
-                console.log(signature);
-            } catch (err) {
-                console.error(err);
-                openToasty('Sign Invoice', err.message, true);
-            }
-        });
+        console.log('encodedInvoice', encodedInvoice);
+        $(`#encoded-invoice-${containerUUID}`).val(encodedInvoice.paymentRequest);
     }
 
     function addRoutingNode(containerUUID, data) {
@@ -129,7 +110,7 @@ const invoiceComponent = function () {
     return {
         openDecodeInvoiceModal,
         openInvoiceEncodeModal,
-        openInvoiceSignModal,
+        encodeInvoice,
         addRoutingNode,
         clear,
         NETWORKS
