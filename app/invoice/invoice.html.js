@@ -164,7 +164,7 @@ invoiceComponent.createNew = function createNew(op) {
                 <tr id="tags-row-${op.containerUUID}" class="d-flex">
                     <td class="col-sm-2"><label>Tags</label></td>
                     <td class="col-sm-10">
-                        <table class="table table-sm border-left border-bottom">
+                        <table class="table table-sm border-left border-bottom shadow p-4 mb-4">
                             <thead class="thead-light">
                                 <tr class="d-flex">
                                     <th class="col-sm-2">Number</th>
@@ -254,7 +254,7 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-4">
                                         <input id="tag-expire-time-data-${op.containerUUID}" type="number" min="0"  class="form-control asm">
                                     </td>
-                                    <td class="col-sm-4"></td>
+                                    <td class="col-sm-3"></td>
                                 </tr>
                                 <tr class="d-flex">
                                     <td class="col-sm-2"> 
@@ -287,9 +287,9 @@ invoiceComponent.createNew = function createNew(op) {
                                     </td>
                                     <td class="col-sm-7"> </td>
                                 </tr>
-                                <tr class="d-flex">
+                                <tr class="d-flex mr-2 mt-2">
                                     <td class="col-sm-2"> </td>
-                                    <td class="col-sm-10 small background-grey">
+                                    <td class="col-sm-10 small background-grey shadow p-4 mb-4">
                                         <div class="row">
                                             <div class="col-sm-2">Address</div>
                                             <div class="col-sm-10">
@@ -304,10 +304,10 @@ invoiceComponent.createNew = function createNew(op) {
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-sm-2">Code</div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <input type="number" id="tag-fallback-address-data-code-${op.containerUUID}" min="0" class="form-control asm">
                                             </div>
-                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-6"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -323,9 +323,7 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-3">
                                         <input type="text" id="tag-routing-info-name-${op.containerUUID}" value="routing_info"  disabled="true" class="form-control asm">
                                     </td>
-                                    <td class="col-sm-7">
-                                        <textarea id="tag-routing-info-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
-                                    </td>
+                                    <td class="col-sm-7"></td>
                                 </tr>
                             </tbody>
                         </table>
