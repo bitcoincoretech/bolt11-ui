@@ -58,9 +58,20 @@ const invoiceComponent = function () {
         $('#modal-extra-buttons').empty();
         $('#modal-body').empty();
 
+        const privateKeyUUID = uuidv4();
+
         try {
-            const keyPairUUID = uuidv4();
-            $('#modal-body').append('');
+
+            const privateKeyInput = `
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Private Key</span>
+                        </div>
+                        <input id="private-key-${privateKeyUUID}" type="password" class="form-control">                      
+                    </div>
+`
+
+            $('#modal-body').append(privateKeyInput);
         } catch (err) {
             console.error(err);
             openToasty('Sign Invoice', err.message, true);
@@ -68,9 +79,11 @@ const invoiceComponent = function () {
 
         $('#modal-confirm-button').click(function () {
             try {
-                const invoice = invoiceComponent.htmlToData(containerUUID);
-
-                const signature = lightningPayReq.sign(invoice, privateKey);
+                const invoiceData = invoiceComponent.htmlToData(containerUUID);
+                const privateKey = $(`#private-key-${privateKeyUUID}`).val() || '';
+                const encodedInvoice = lightningPayReq.encode(invoiceData);
+                // const decodedInvoice = lightningPayReq.encode(encodedInvoice);
+                const signature = lightningPayReq.sign(encodedInvoice, privateKey);
                 console.log(signature);
             } catch (err) {
                 console.error(err);
