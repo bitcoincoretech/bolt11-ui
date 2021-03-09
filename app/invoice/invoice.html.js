@@ -186,7 +186,7 @@ invoiceComponent.createNew = function createNew(op) {
                                         <input type="text" id="tag-payment-hash-name-${op.containerUUID}" value="payment_hash"  disabled="true" class="form-control asm">
                                     </td>
                                     <td class="col-sm-7">
-                                        <textarea id="tag-payment-hash-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                        <textarea id="tag-payment-hash-data-${op.containerUUID}" rows="2" class="form-control asm"></textarea>
                                     </td>
                                 </tr>
                                 <tr class="d-flex">
@@ -235,7 +235,7 @@ invoiceComponent.createNew = function createNew(op) {
                                         <input type="text" id="tag-purpose-commit-hash-name-${op.containerUUID}" value="purpose_commit_hash"  disabled="true" class="form-control asm">
                                     </td>
                                     <td class="col-sm-7">
-                                        <textarea id="tag-purpose-commit-hash-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                        <textarea id="tag-purpose-commit-hash-data-${op.containerUUID}" rows="2" class="form-control asm"></textarea>
                                     </td>
                                 </tr>
 
@@ -251,9 +251,10 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-3">
                                         <input type="text" id="tag-expire-time-name-${op.containerUUID}" value="expire_time"  disabled="true" class="form-control asm">
                                     </td>
-                                    <td class="col-sm-7">
-                                        <textarea id="tag-expire-time-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    <td class="col-sm-4">
+                                        <input id="tag-expire-time-data-${op.containerUUID}" type="number" min="0"  class="form-control asm">
                                     </td>
+                                    <td class="col-sm-4"></td>
                                 </tr>
                                 <tr class="d-flex">
                                     <td class="col-sm-2"> 
@@ -267,9 +268,10 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-3">
                                         <input type="text" id="tag-min-final-cltv-expiry-name-${op.containerUUID}" value="min_final_cltv_expiry"  disabled="true" class="form-control asm">
                                     </td>
-                                    <td class="col-sm-7">
-                                        <textarea id="tag-min-final-cltv-expiry-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    <td class="col-sm-4">
+                                        <input id="tag-min-final-cltv-expiry-data-${op.containerUUID}" type="number" min="0" class="form-control asm">
                                     </td>
+                                    <td class="col-sm-3"></td>
                                 </tr>
                                 <tr class="d-flex">
                                     <td class="col-sm-2"> 
@@ -368,4 +370,38 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
 
     const recoveryFlag = data.invoice.recoveryFlag;
     $(`#recovery-flag-${containerUUID}`).val(recoveryFlag === undefined ? '' : recoveryFlag);
+
+    const tags = data.invoice.tags;
+
+    const paymentHash = tags.find(t => t.tagName === 'payment_hash');
+    $(`#tag-payment-hash-selected-${containerUUID}`).prop('checked', !!paymentHash);
+    $(`#tag-payment-hash-data-${containerUUID}`).val(paymentHash ? paymentHash.data : '');
+
+    const description = tags.find(t => t.tagName === 'description');
+    $(`#tag-description-selected-${containerUUID}`).prop('checked', !!description);
+    $(`#tag-description-data-${containerUUID}`).val(description ? description.data : '');
+
+    const payeeNodeKey = tags.find(t => t.tagName === 'payee_node_key');
+    $(`#tag-payee-node-key-selected-${containerUUID}`).prop('checked', !!payeeNodeKey);
+    $(`#tag-payee-node-key-data-${containerUUID}`).val(payeeNodeKey ? payeeNodeKey.data : '');
+
+    const purposeCommitHash = tags.find(t => t.tagName === 'purpose_commit_hash');
+    $(`#tag-purpose-commit-hash-selected-${containerUUID}`).prop('checked', !!purposeCommitHash);
+    $(`#tag-purpose-commit-hash-data-${containerUUID}`).val(purposeCommitHash ? purposeCommitHash.data : '');
+
+    const expireTime = tags.find(t => t.tagName === 'expire_time');
+    $(`#tag-expire-time-selected-${containerUUID}`).prop('checked', !!expireTime);
+    $(`#tag-expire-time-data-${containerUUID}`).val(expireTime ? expireTime.data : '');
+
+    const minCltv = tags.find(t => t.tagName === 'min_final_cltv_expiry');
+    $(`#tag-min-final-cltv-expiry-selected-${containerUUID}`).prop('checked', !!minCltv);
+    $(`#tag-min-final-cltv-expiry-data-${containerUUID}`).val(minCltv ? minCltv.data : '');
+
+
+    // const description = tags.find(t => t.tagName === 'description');
+    // $(`#tag-description-selected-${containerUUID}`).prop('checked', !!description);
+    // $(`#tag-description-data-${containerUUID}`).val(description ? description.data : '');
+
+
+
 }
