@@ -111,12 +111,26 @@ const invoiceComponent = function () {
         }
     }
 
+    const FEATUREBIT_ORDER = [
+        'option_data_loss_protect',
+        'initial_routing_sync',
+        'option_upfront_shutdown_script',
+        'gossip_queries',
+        'var_onion_optin',
+        'gossip_queries_ex',
+        'option_static_remotekey',
+        'payment_secret',
+        'basic_mpp',
+        'option_support_large_channel'
+      ]
+
     return {
         openDecodeInvoiceModal,
         openInvoiceEncodeModal,
         encodeInvoice,
         addRoutingNode,
         clear,
-        NETWORKS
+        NETWORKS,
+        FEATUREBIT_ORDER
     }
 }();

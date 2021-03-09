@@ -356,7 +356,35 @@ invoiceComponent.createNew = function createNew(op) {
                                 </tr>
 
                                 <tr class="d-flex">
-                                    
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-feature-bits-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-feature-bits-number-${op.containerUUID}" value="5" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-feature-bits-name-${op.containerUUID}" value="feature_bits"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7"></td>
+                                </tr>
+                                <tr class="d-flex mr-2 mt-2">
+                                    <td class="col-sm-2"> </td>
+                                    <td class="col-sm-10">
+                                        <table class="table table-sm border-left border-bottom shadow p-4 mb-4">
+                                            <thead class="thead-light">
+                                                <tr class="d-flex">
+                                                    <th class="col-sm-6">Name</th>
+                                                    <th class="col-sm-3">Is Required</th>
+                                                    <th class="col-sm-3">Is Supported</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tag-feature-bits-container-${op.containerUUID}">
+                
+                                            </tbody>
+                                        </table>
+                                    </td>
                                 </tr>
 
                             </tbody>
@@ -389,7 +417,7 @@ invoiceComponent.createExternalMenu = function createExternalMenu(op) {
 invoiceComponent.htmlToData = function htmlToData(containerUUID) {
     const invoice = {}
 
-    const network =  $(`#network-${containerUUID}`).val();
+    const network = $(`#network-${containerUUID}`).val();
     invoice.network = invoiceComponent.NETWORKS[network];
 
     // invoice.signature = 
@@ -541,7 +569,7 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     const recoveryFlag = data.invoice.recoveryFlag;
     $(`#recovery-flag-${containerUUID}`).val(recoveryFlag === undefined ? '' : recoveryFlag);
 
-    const tags = data.invoice.tags;
+    const tags = data.invoice.tags || [];
 
     const paymentHash = tags.find(t => t.tagName === 'payment_hash');
     $(`#tag-payment-hash-selected-${containerUUID}`).prop('checked', !!paymentHash);
@@ -588,5 +616,25 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
         });
     }
 
+    $(`#tag-feature-bits-container-${containerUUID}`).empty();
+    const featureBits = tags.find(t => t.tagName === 'feature_bits');
+    invoiceComponent.FEATUREBIT_ORDER.forEach(featureBit => {
+        const feature = (featureBits && featureBits.data && featureBits.data[featureBit]) || {};
+        const isRequired = feature.required === true ? 'checked' : '';
+        const isSupported = feature.supported === true ? 'checked' : '';
+        $(`#tag-feature-bits-container-${containerUUID}`).append(`
+            <tr class="d-flex">
+                <td class="col-sm-6">
+                    <span>${featureBit}</span>
+                </td>
+                <td class="col-sm-3">
+                    <input id="tag-feature-bits-${featureBit}-required-${containerUUID}" type="checkbox" ${isRequired} class="form-check-input ml-5" value="">
+                    </td>
+                <td class="col-sm-3">
+                    <input id="tag-feature-bits-${featureBit}-supported-${containerUUID}" type="checkbox" ${isSupported} class="form-check-input ml-5" value="">
+                </td>
+            </tr>
+        `);
+    })
 
 }

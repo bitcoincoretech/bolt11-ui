@@ -29,6 +29,7 @@
 
             const invoiceContainerUUID = uuidv4();
             $(`#invoiceCheckContainer`).html(invoiceComponent.createNew({ containerUUID: invoiceContainerUUID }));
+            invoiceComponent.dataToHtml(invoiceContainerUUID, { invoice: {} })
             $(`#bottom-menu`).html(invoiceComponent.createExternalMenu({ containerUUID: invoiceContainerUUID }));
             $(`#invoiceCheckTabHeader`).click(function () {
                 $(`#bottom-menu`).html(invoiceComponent.createExternalMenu({ containerUUID: invoiceContainerUUID }));
