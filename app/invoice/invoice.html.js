@@ -443,6 +443,7 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
 
     const routingInfo = tags.find(t => t.tagName === 'routing_info');
     $(`#tag-routing-info-selected-${containerUUID}`).prop('checked', !!routingInfo);
+    $(`#routing-nodes-container-${containerUUID}`).empty();
     if (routingInfo && routingInfo.data){
         routingInfo.data.forEach(routingNode => {
             invoiceComponent.addRoutingNode(containerUUID, routingNode);
