@@ -285,8 +285,26 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-3">
                                         <input type="text" id="tag-fallback-address-name-${op.containerUUID}" value="fallback_address"  disabled="true" class="form-control asm">
                                     </td>
-                                    <td class="col-sm-7">
-                                        <textarea id="tag-fallback-address-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    <td class="col-sm-7 small">
+                                        <div class="row">
+                                            <div class="col-sm-3">Address</div>
+                                            <div class="col-sm-9">
+                                                <input type="text" id="tag-fallback-address-data-value-${op.containerUUID}" class="form-control asm">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-3">Address Hash</div>
+                                            <div class="col-sm-9">
+                                                <input type="text" id="tag-fallback-address-data-hash-${op.containerUUID}" class="form-control asm">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-3">Code</div>
+                                            <div class="col-sm-6">
+                                                <input type="number" id="tag-fallback-address-data-code-${op.containerUUID}" min="0" class="form-control asm">
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr class="d-flex">
@@ -398,10 +416,10 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     $(`#tag-min-final-cltv-expiry-data-${containerUUID}`).val(minCltv ? minCltv.data : '');
 
 
-    // const description = tags.find(t => t.tagName === 'description');
-    // $(`#tag-description-selected-${containerUUID}`).prop('checked', !!description);
-    // $(`#tag-description-data-${containerUUID}`).val(description ? description.data : '');
-
-
+    const fallbackAddr = tags.find(t => t.tagName === 'fallback_address');
+    $(`#tag-fallback-address-selected-${containerUUID}`).prop('checked', !!fallbackAddr);
+    $(`#tag-fallback-address-data-value-${containerUUID}`).val((fallbackAddr && fallbackAddr.data) ? fallbackAddr.data.address : '');
+    $(`#tag-fallback-address-data-hash-${containerUUID}`).val((fallbackAddr && fallbackAddr.data) ? fallbackAddr.data.addressHash : '');
+    $(`#tag-fallback-address-data-code-${containerUUID}`).val((fallbackAddr && fallbackAddr.data) ? fallbackAddr.data.code : '');
 
 }
