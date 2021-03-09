@@ -329,44 +329,18 @@ invoiceComponent.createNew = function createNew(op) {
                                 <tr class="d-flex mr-2 mt-2">
                                     <td class="col-sm-2"> </td>
                                     <td class="col-sm-10">
-                                        <div class="small background-grey shadow p-4 mb-4">
-                                            <div class="row">
-                                                <div class="col-sm-3">Public Key</div>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="tag-routing-pubkey-${op.containerUUID}" class="form-control asm">
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-sm-3">Short Channel ID</div>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="tag-routing-short-channel_id-${op.containerUUID}" class="form-control asm">
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-sm-3">Fee Base MSat</div>
-                                                <div class="col-sm-4">
-                                                    <input type="number" id="tag-routing-fee-base-msat-${op.containerUUID}" min="0" class="form-control asm">
-                                                </div>
-                                                <div class="col-sm-5"></div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-sm-3">Fee Proportional Millionths</div>
-                                                <div class="col-sm-4">
-                                                    <input type="number" id="tag-routing-fee-proportional-millionths-${op.containerUUID}" min="0" class="form-control asm">
-                                                </div>
-                                                <div class="col-sm-5"></div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-sm-3">CLTV Expiry Delta</div>
-                                                <div class="col-sm-4">
-                                                    <input type="number" id="tag-routing-cltv-expiry-delta-${op.containerUUID}" min="0" class="form-control asm">
-                                                </div>
-                                                <div class="col-sm-5"></div>
-                                            </div>
+                                        <div id="routing-nodes-container-${op.containerUUID}" class="col-sm-12">
+                                        </div>
+                                        <div class="col-sm-12"> 
+                                            <button onclick="invoiceComponent.addRoutingNode('${op.containerUUID}')" type="button"
+                                                class="btn btn-info  float-right ">Add Routing Node</button>
                                         </div>
                                     </td>
                                 </tr>
 
+                                <tr class="d-flex">
+                                    
+                                </tr>
 
                             </tbody>
                         </table>
@@ -466,5 +440,14 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     $(`#tag-fallback-address-data-value-${containerUUID}`).val((fallbackAddr && fallbackAddr.data) ? fallbackAddr.data.address : '');
     $(`#tag-fallback-address-data-hash-${containerUUID}`).val((fallbackAddr && fallbackAddr.data) ? fallbackAddr.data.addressHash : '');
     $(`#tag-fallback-address-data-code-${containerUUID}`).val((fallbackAddr && fallbackAddr.data) ? fallbackAddr.data.code : '');
+
+    const routingInfo = tags.find(t => t.tagName === 'routing_info');
+    $(`#tag-routing-info-selected-${containerUUID}`).prop('checked', !!routingInfo);
+    if (routingInfo && routingInfo.data){
+        routingInfo.data.forEach(routingNode => {
+            invoiceComponent.addRoutingNode(containerUUID, routingNode);
+        });
+    }
+    
 
 }

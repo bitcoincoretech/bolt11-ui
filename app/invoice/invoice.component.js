@@ -52,10 +52,22 @@ const invoiceComponent = function () {
         $('#modal-confirm-button').click(function () {});
     }
 
+    function addRoutingNode(containerUUID, data){
+        const routingNodeUUID = uuidv4();
+        const routingNodeHtml = routingNodeComponent.createNew({
+            containerUUID: routingNodeUUID
+        });
+        $(`#routing-nodes-container-${containerUUID}`).append(`<div id="invoice-routing-node-${routingNodeUUID}" class="shadow mb-2 mt-2 mr-2">${routingNodeHtml}</div>`);
+        if (data) {
+            routingNodeComponent.dataToHtml(routingNodeUUID, data);
+        }
+    }
+
 
     return {
         openDecodeInvoiceModal,
         openInvoiceEncodeModal,
+        addRoutingNode,
         clear
     }
 }();
