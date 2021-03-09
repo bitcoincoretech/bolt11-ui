@@ -160,6 +160,35 @@ invoiceComponent.createNew = function createNew(op) {
                         </div>
                     </td>
                 </tr> 
+
+                <tr id="tags-row-${op.containerUUID}" class="d-flex">
+                    <td class="col-sm-2"><label>Tags</label></td>
+                    <td class="col-sm-10">
+                        <table class="table table-sm border-left border-bottom">
+                            <thead class="thead-light">
+                                <tr class="d-flex">
+                                    <th class="col-sm-2">Number</th>
+                                    <th class="col-sm-3">Name</th>
+                                    <th class="col-sm-7">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="d-flex">
+                                    <td class="col-sm-2">
+                                        <input type="number" id="tag-id-${op.containerUUID}" value="0" min="0" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-id-${op.containerUUID}" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-data-${op.containerUUID}" rows="3" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </td>
+                </tr> 
             </tbody>
         </table>
     </div>
