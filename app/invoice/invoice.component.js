@@ -52,6 +52,33 @@ const invoiceComponent = function () {
         $('#modal-confirm-button').click(function () {});
     }
 
+    function openInvoiceSignModal(containerUUID) {
+        $('#modal-title').text('Sign Invoice');
+        $('#modal-confirm-button').off();
+        $('#modal-extra-buttons').empty();
+        $('#modal-body').empty();
+
+        try {
+            const keyPairUUID = uuidv4();
+            $('#modal-body').append('');
+        } catch (err) {
+            console.error(err);
+            openToasty('Sign Invoice', err.message, true);
+        }
+
+        $('#modal-confirm-button').click(function () {
+            try {
+                const invoice = invoiceComponent.htmlToData(containerUUID);
+
+                const signature = lightningPayReq.sign(invoice, privateKey);
+                console.log(signature);
+            } catch (err) {
+                console.error(err);
+                openToasty('Sign Invoice', err.message, true);
+            }
+        });
+    }
+
     function addRoutingNode(containerUUID, data) {
         const routingNodeUUID = uuidv4();
         const routingNodeHtml = routingNodeComponent.createNew({
@@ -89,6 +116,7 @@ const invoiceComponent = function () {
     return {
         openDecodeInvoiceModal,
         openInvoiceEncodeModal,
+        openInvoiceSignModal,
         addRoutingNode,
         clear,
         NETWORKS

@@ -144,7 +144,7 @@ invoiceComponent.createNew = function createNew(op) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Bech32</span>
                             </div>
-                            <input type="text" id="signature-${op.containerUUID}" disabled="true" class="form-control asm">
+                            <input type="text" id="signature-${op.containerUUID}" class="form-control asm">
                         </div>
                     </td>
                 </tr>
@@ -361,6 +361,10 @@ invoiceComponent.createExternalMenu = function createExternalMenu(op) {
             <button type="button" onclick="invoiceComponent.openInvoiceEncodeModal('${op.containerUUID}')" class="btn btn-info ml-3 button120"
                 data-toggle="modal" data-target="#modal-dialog">Encode</button>
             </button>
+
+            <button type="button" onclick="invoiceComponent.openInvoiceSignModal('${op.containerUUID}')" class="btn btn-warning ml-3 button120"
+                data-toggle="modal" data-target="#modal-dialog">Sign</button>
+            </button>
     
             <button type="button" onclick="invoiceComponent.clear('${op.containerUUID}')" class="btn btn-secondary ml-5 button120">
                 Clear
@@ -374,7 +378,7 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
 
     const network =  $(`#network-${containerUUID}`).val();
     invoice.network = invoiceComponent.NETWORKS[network];
-    
+
     // invoice.signature = 
 
 
@@ -485,7 +489,6 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
 
     return invoice;
 }
-
 
 invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     if (!data || !data.invoice) {
