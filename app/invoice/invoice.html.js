@@ -285,25 +285,29 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-3">
                                         <input type="text" id="tag-fallback-address-name-${op.containerUUID}" value="fallback_address"  disabled="true" class="form-control asm">
                                     </td>
-                                    <td class="col-sm-7 small">
+                                    <td class="col-sm-7"> </td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> </td>
+                                    <td class="col-sm-10 small background-grey">
                                         <div class="row">
-                                            <div class="col-sm-3">Address</div>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-2">Address</div>
+                                            <div class="col-sm-10">
                                                 <input type="text" id="tag-fallback-address-data-value-${op.containerUUID}" class="form-control asm">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-sm-3">Address Hash</div>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-2">Address Hash</div>
+                                            <div class="col-sm-10">
                                                 <input type="text" id="tag-fallback-address-data-hash-${op.containerUUID}" class="form-control asm">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-sm-3">Code</div>
+                                            <div class="col-sm-2">Code</div>
                                             <div class="col-sm-6">
                                                 <input type="number" id="tag-fallback-address-data-code-${op.containerUUID}" min="0" class="form-control asm">
                                             </div>
-                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-4"></div>
                                         </div>
                                     </td>
                                 </tr>
