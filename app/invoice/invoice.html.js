@@ -372,6 +372,86 @@ invoiceComponent.createExternalMenu = function createExternalMenu(op) {
 invoiceComponent.htmlToData = function htmlToData(containerUUID) {
     const invoice = {}
 
+    // invoice.network = 
+    // invoice.signature = 
+    // invoice.tags=
+    // 
+
+    const millisatoshis = $(`#amount-${containerUUID}`).val();
+    if (millisatoshis) {
+        invoice.millisatoshis = +millisatoshis;
+    }
+
+    const payeeNodeKey = $(`#payee-node-key-${containerUUID}`).val();
+    if (payeeNodeKey) {
+        invoice.payeeNodeKey = payeeNodeKey;
+    }
+
+    const timestamp = $(`#timestamp-${containerUUID}`).val();
+    if (timestamp) {
+        invoice.timestamp = +timestamp;
+    }
+
+    const recoveryFlag = $(`#recovery-flag-${containerUUID}`).val();
+    if (recoveryFlag) {
+        invoice.recoveryFlag = +recoveryFlag;
+    }
+
+    const tags = [];
+    if ($(`#tag-payment-hash-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'payment_hash',
+            data: $(`#tag-payment-hash-data-${containerUUID}`).val() || ''
+        })
+    }
+
+    if ($(`#tag-description-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'description',
+            data: $(`#tag-description-data-${containerUUID}`).val() || ''
+        })
+    }
+
+    if ($(`#tag-payee-node-key-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'payee_node_key',
+            data: $(`#tag-payee-node-key-data-${containerUUID}`).val() || ''
+        })
+    }
+
+    if ($(`#tag-purpose-commit-hash-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'purpose_commit_hash',
+            data: $(`#tag-purpose-commit-hash-data-${containerUUID}`).val() || ''
+        })
+    }
+
+    if ($(`#tag-expire-time-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'expire_time',
+            data: $(`#tag-expire-time-data-${containerUUID}`).val() || ''
+        })
+    }
+
+    if ($(`#tag-min-final-cltv-expiry-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'min_final_cltv_expiry',
+            data: $(`#tag-min-final-cltv-expiry-data-${containerUUID}`).val() || ''
+        })
+    }
+
+    // const routingNodes = [];
+    // $(`#routing-nodes-container-${containerUUID}`).children().each(function () {
+    //     const nodeUUID = this.id.split("invoice-routing-node-")[1];
+    //     if (!nodeUUID) {
+    //         return;
+    //     }
+    // });
+
+    if (tags.length){
+        invoice.tags = tags
+    }
+
 
     return invoice;
 }
@@ -444,11 +524,11 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     const routingInfo = tags.find(t => t.tagName === 'routing_info');
     $(`#tag-routing-info-selected-${containerUUID}`).prop('checked', !!routingInfo);
     $(`#routing-nodes-container-${containerUUID}`).empty();
-    if (routingInfo && routingInfo.data){
+    if (routingInfo && routingInfo.data) {
         routingInfo.data.forEach(routingNode => {
             invoiceComponent.addRoutingNode(containerUUID, routingNode);
         });
     }
-    
+
 
 }

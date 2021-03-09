@@ -26,7 +26,6 @@ const invoiceComponent = function () {
                 invoiceComponent.dataToHtml(containerUUID, {
                     invoice
                 });
-                ///dataToHTML
             } catch (err) {
                 console.error(err);
                 openToasty('Decode BOLT 11 Invoice', err.message, true);
@@ -43,7 +42,8 @@ const invoiceComponent = function () {
         try {
             const invoice = invoiceComponent.htmlToData(containerUUID);
             $('#modal-body').append('<textarea id="invoiceText" readonly rows="10" style="width: 100%"></textarea>');
-            $(`#invoiceText`).val(invoice.toHex());
+            $(`#invoiceText`).val(JSON.stringify(invoice));
+            console.log('invoice', invoice)
         } catch (err) {
             console.error(err);
             openToasty('Encode BOLT 11 Invoice', err.message, true);
@@ -52,7 +52,7 @@ const invoiceComponent = function () {
         $('#modal-confirm-button').click(function () {});
     }
 
-    function addRoutingNode(containerUUID, data){
+    function addRoutingNode(containerUUID, data) {
         const routingNodeUUID = uuidv4();
         const routingNodeHtml = routingNodeComponent.createNew({
             containerUUID: routingNodeUUID
