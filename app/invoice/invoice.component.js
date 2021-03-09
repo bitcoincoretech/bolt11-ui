@@ -63,11 +63,34 @@ const invoiceComponent = function () {
         }
     }
 
+    const NETWORKS = {
+        bc: {
+            // default network is bitcoin
+            bech32: 'bc',
+            pubKeyHash: 0x00,
+            scriptHash: 0x05,
+            validWitnessVersions: [0]
+        },
+
+        tb: {
+            bech32: 'tb',
+            pubKeyHash: 0x6f,
+            scriptHash: 0xc4,
+            validWitnessVersions: [0]
+        },
+        sm: {
+            bech32: 'sb',
+            pubKeyHash: 0x3f,
+            scriptHash: 0x7b,
+            validWitnessVersions: [0]
+        }
+    }
 
     return {
         openDecodeInvoiceModal,
         openInvoiceEncodeModal,
         addRoutingNode,
-        clear
+        clear,
+        NETWORKS
     }
 }();

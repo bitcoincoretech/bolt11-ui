@@ -372,8 +372,12 @@ invoiceComponent.createExternalMenu = function createExternalMenu(op) {
 invoiceComponent.htmlToData = function htmlToData(containerUUID) {
     const invoice = {}
 
-    // invoice.network = 
+    const network =  $(`#network-${containerUUID}`).val();
+    invoice.network = invoiceComponent.NETWORKS[network];
+    
     // invoice.signature = 
+
+
 
     const millisatoshis = $(`#amount-${containerUUID}`).val();
     if (millisatoshis) {
