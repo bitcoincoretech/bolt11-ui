@@ -189,6 +189,23 @@ invoiceComponent.createNew = function createNew(op) {
                                         <textarea id="tag-payment-hash-data-${op.containerUUID}" rows="2" class="form-control asm"></textarea>
                                     </td>
                                 </tr>
+
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-payment-secret-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-payment-secret-number-${op.containerUUID}" value="16" disabled="true" class="form-control asm">
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-payment-secret-name-${op.containerUUID}" value="payment_secret"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-payment-secret-data-${op.containerUUID}" rows="2" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>                                
                                 <tr class="d-flex">
                                     <td class="col-sm-2"> 
                                         <div class="form-check-inline">
@@ -407,6 +424,13 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
         })
     }
 
+    if ($(`#tag-payment-secret-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'payment_secret',
+            data: $(`#tag-payment-secret-data-${containerUUID}`).val() || ''
+        })
+    }
+
     if ($(`#tag-description-selected-${containerUUID}`).prop('checked')) {
         tags.push({
             tagName: 'description',
@@ -522,6 +546,11 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     const paymentHash = tags.find(t => t.tagName === 'payment_hash');
     $(`#tag-payment-hash-selected-${containerUUID}`).prop('checked', !!paymentHash);
     $(`#tag-payment-hash-data-${containerUUID}`).val(paymentHash ? paymentHash.data : '');
+
+    const paymentSecret = tags.find(t => t.tagName === 'payment_secret');
+    $(`#tag-payment-secret-selected-${containerUUID}`).prop('checked', !!paymentSecret);
+    $(`#tag-payment-secret-data-${containerUUID}`).val(paymentSecret ? paymentSecret.data : '');
+
 
     const description = tags.find(t => t.tagName === 'description');
     $(`#tag-description-selected-${containerUUID}`).prop('checked', !!description);
