@@ -374,8 +374,6 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
 
     // invoice.network = 
     // invoice.signature = 
-    // invoice.tags=
-    // 
 
     const millisatoshis = $(`#amount-${containerUUID}`).val();
     if (millisatoshis) {
@@ -440,15 +438,43 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
         })
     }
 
-    // const routingNodes = [];
-    // $(`#routing-nodes-container-${containerUUID}`).children().each(function () {
-    //     const nodeUUID = this.id.split("invoice-routing-node-")[1];
-    //     if (!nodeUUID) {
-    //         return;
-    //     }
-    // });
+    if ($(`#tag-fallback-address-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'fallback_address',
+            data: {
+                address: $(`#tag-fallback-address-data-value-${containerUUID}`).val() || '',
+                addressHash: $(`#tag-fallback-address-data-hash-${containerUUID}`).val() || '',
+                code: +($(`#tag-fallback-address-data-code-${containerUUID}`).val() || 0)
+            }
+        })
+    }
 
-    if (tags.length){
+    if ($(`#tag-routing-info-selected-${containerUUID}`).prop('checked')) {
+        const routingNodes = [];
+        $(`#routing-nodes-container-${containerUUID}`).children().each(function () {
+            const routingNodeUUID = this.id.split("invoice-routing-node-")[1];
+            if (!routingNodeUUID) {
+                return;
+            }
+            const routingNodeData = routingNodeComponent.htmlToData(routingNodeUUID);
+            routingNodes.push(routingNodeData);
+        });
+        tags.push({
+            tagName: 'routing_info',
+            data: routingNodes
+        });
+    }
+
+    const routingInfo = tags.find(t => t.tagName === 'routing_info');
+    $(`#tag-routing-info-selected-${containerUUID}`).prop('checked', !!routingInfo);
+    $(`#routing-nodes-container-${containerUUID}`).empty();
+    if (routingInfo && routingInfo.data) {
+        routingInfo.data.forEach(routingNode => {
+            invoiceComponent.addRoutingNode(containerUUID, routingNode);
+        });
+    }
+
+    if (tags.length) {
         invoice.tags = tags
     }
 

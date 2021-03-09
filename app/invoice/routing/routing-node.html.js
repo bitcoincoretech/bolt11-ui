@@ -55,6 +55,18 @@ routingNodeComponent.createNew = function createNew(op) {
     `
 }
 
+routingNodeComponent.htmlToData = function htmlToData(containerUUID) {
+    const data = {};
+
+    data.pubkey = $(`#tag-routing-pubkey-${containerUUID}`).val() || '';
+    data.short_channel_id = $(`#tag-routing-short-channel_id-${containerUUID}`).val() || '';
+    data.fee_base_msat = +($(`#tag-routing-fee-base-msat-${containerUUID}`).val() || 0);
+    data.fee_proportional_millionths = +($(`#tag-routing-fee-proportional-millionths-${containerUUID}`).val() || 0);
+    data.cltv_expiry_delta = +($(`#tag-routing-cltv-expiry-delta-${containerUUID}`).val() || 0);
+
+    return data;
+}
+
 routingNodeComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     if (!data) {
         return;
