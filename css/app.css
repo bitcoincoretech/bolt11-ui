@@ -1,3 +1,7 @@
+.popover{
+  max-width:600px;
+}
+
 .pointer {
   cursor: pointer;
 }

@@ -5,7 +5,8 @@ invoiceComponent.createNew = function createNew(op) {
         <table class="table table-sm border-bottom">
             <tbody>
                 <tr id="payment-request-row-${op.containerUUID}" class="d-flex">
-                    <td class="col-sm-2"><label>Payment Request</label></td>
+                    <td class="col-sm-2"><label>Payment Request</label>
+                    </td>
                     <td class="col-sm-10">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -108,7 +109,7 @@ invoiceComponent.createNew = function createNew(op) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Int32</span>
                             </div>
-                            <input type="number" id="expire-${op.containerUUID}" value="3600" min="0" class="form-control asm">
+                            <input type="number" id="expire-${op.containerUUID}" value="" min="0" class="form-control asm">
                         </div>
                     </td>
                     <td class="col-sm-4">
@@ -180,6 +181,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-payment-hash-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-payment-hash-number-${op.containerUUID}" value="1" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Payment Hash" data-content="256-bit SHA256 payment_hash. Preimage of this provides proof of payment">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -189,6 +193,26 @@ invoiceComponent.createNew = function createNew(op) {
                                         <textarea id="tag-payment-hash-data-${op.containerUUID}" rows="2" class="form-control asm"></textarea>
                                     </td>
                                 </tr>
+
+                                <tr class="d-flex">
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-payment-secret-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-payment-secret-number-${op.containerUUID}" value="16" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Payment Secret" data-content="This 256-bit secret prevents forwarding nodes from probing the payment recipient.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-payment-secret-name-${op.containerUUID}" value="payment_secret"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <textarea id="tag-payment-secret-data-${op.containerUUID}" rows="2" class="form-control asm"></textarea>
+                                    </td>
+                                </tr>                                
                                 <tr class="d-flex">
                                     <td class="col-sm-2"> 
                                         <div class="form-check-inline">
@@ -196,6 +220,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-description-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-description-number-${op.containerUUID}" value="13" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Description" data-content="Short description of purpose of payment (UTF-8), e.g. '1 cup of coffee' or 'ナンセンス 1杯'">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -212,6 +239,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-payee-node-key-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-payee-node-key-number-${op.containerUUID}" value="19" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Public Key" data-content="33-byte public key of the payee node">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -229,6 +259,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-purpose-commit-hash-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-purpose-commit-hash-number-${op.containerUUID}" value="23" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Putpose of Payment" data-content="256-bit description of purpose of payment (SHA256). This is used to commit to an associated description that is over 639 bytes, but the transport mechanism for the description in that case is transport specific and not defined here.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -246,6 +279,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-expire-time-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-expire-time-number-${op.containerUUID}" value="6" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Expiry Time" data-content="Expiry time in seconds (big-endian). Default is 3600 (1 hour) if not specified.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -263,6 +299,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-min-final-cltv-expiry-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-min-final-cltv-expiry-number-${op.containerUUID}" value="24" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Min Final CLTV Expiry" data-content="To use for the last HTLC in the route. Default is 18 if not specified.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -280,6 +319,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-fallback-address-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-fallback-address-number-${op.containerUUID}" value="9" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Fallback Address" data-content="Fallback on-chain address: for Bitcoin, this starts with a 5-bit version and contains a witness program or P2PKH or P2SH address.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -288,8 +330,8 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-7"> </td>
                                 </tr>
                                 <tr class="d-flex mr-2 mt-2">
-                                    <td class="col-sm-2"> </td>
-                                    <td class="col-sm-10 small background-grey shadow p-4 mb-4">
+                                    <td class="col-sm-2 border-0"> </td>
+                                    <td class="col-sm-10 small background-grey shadow p-4 mb-4 border-0">
                                         <div class="row">
                                             <div class="col-sm-2">Address</div>
                                             <div class="col-sm-10">
@@ -318,6 +360,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-routing-info-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-routing-info-number-${op.containerUUID}" value="3" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Routing Info" data-content="One or more entries containing extra routing information for a private route; there may be more than one r field">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -327,8 +372,8 @@ invoiceComponent.createNew = function createNew(op) {
                                 </tr>
 
                                 <tr class="d-flex mr-2 mt-2">
-                                    <td class="col-sm-2"> </td>
-                                    <td class="col-sm-10">
+                                    <td class="col-sm-2 border-0"> </td>
+                                    <td class="col-sm-10 border-0">
                                         <div id="routing-nodes-container-${op.containerUUID}" class="col-sm-12">
                                         </div>
                                         <div class="col-sm-12"> 
@@ -339,8 +384,54 @@ invoiceComponent.createNew = function createNew(op) {
                                 </tr>
 
                                 <tr class="d-flex">
-                                    
+                                    <td class="col-sm-2"> 
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="tag-feature-bits-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
+                                            </label>
+                                            <input id="tag-feature-bits-number-${op.containerUUID}" value="5" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Feature Bits" data-content="One or more 5-bit values containing features supported or required for receiving this payment.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-3">
+                                        <input type="text" id="tag-feature-bits-name-${op.containerUUID}" value="feature_bits"  disabled="true" class="form-control asm">
+                                    </td>
+                                    <td class="col-sm-7"></td>
                                 </tr>
+
+                                <tr class="d-flex mr-2 mt-2">
+                                    <td class="col-sm-2 border-0"> </td>
+                                    <td class="col-sm-10 border-0">                                        
+                                        <table class="table table-sm border-left border-bottom shadow p-4 mb-4">
+                                            <thead class="thead-light">
+                                                <tr class="d-flex">
+                                                    <th class="col-sm-6">Name</th>
+                                                    <th class="col-sm-3">Is Required</th>
+                                                    <th class="col-sm-3">Is Supported</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tag-feature-bits-container-${op.containerUUID}">
+                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="d-flex">
+                                                    <td class="col-sm-6">                                        
+                                                        <label>Word Length</label>
+                                                    </td>
+                                                    <td class="col-sm-3"> </td>
+                                                    <td class="col-sm-3">                                        
+                                                        <input type="number" id="tag-feature-bits-word-length-${op.containerUUID}"  class="form-control asm">
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                               
 
                             </tbody>
                         </table>
@@ -372,12 +463,10 @@ invoiceComponent.createExternalMenu = function createExternalMenu(op) {
 invoiceComponent.htmlToData = function htmlToData(containerUUID) {
     const invoice = {}
 
-    const network =  $(`#network-${containerUUID}`).val();
+    const network = $(`#network-${containerUUID}`).val();
     invoice.network = invoiceComponent.NETWORKS[network];
 
     // invoice.signature = 
-
-
 
     const millisatoshis = $(`#amount-${containerUUID}`).val();
     if (millisatoshis) {
@@ -404,6 +493,13 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
         tags.push({
             tagName: 'payment_hash',
             data: $(`#tag-payment-hash-data-${containerUUID}`).val() || ''
+        })
+    }
+
+    if ($(`#tag-payment-secret-selected-${containerUUID}`).prop('checked')) {
+        tags.push({
+            tagName: 'payment_secret',
+            data: $(`#tag-payment-secret-data-${containerUUID}`).val() || ''
         })
     }
 
@@ -469,12 +565,21 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
         });
     }
 
-    const routingInfo = tags.find(t => t.tagName === 'routing_info');
-    $(`#tag-routing-info-selected-${containerUUID}`).prop('checked', !!routingInfo);
-    $(`#routing-nodes-container-${containerUUID}`).empty();
-    if (routingInfo && routingInfo.data) {
-        routingInfo.data.forEach(routingNode => {
-            invoiceComponent.addRoutingNode(containerUUID, routingNode);
+    if ($(`#tag-feature-bits-selected-${containerUUID}`).prop('checked')) {
+        const featureBits = {};
+        invoiceComponent.FEATUREBIT_ORDER.forEach(featureBit => {
+            featureBits[featureBit] = {
+                supported: $(`#tag-feature-bits-${featureBit}-supported-${containerUUID}`).prop('checked'),
+                required: $(`#tag-feature-bits-${featureBit}-required-${containerUUID}`).prop('checked')
+            }
+        });
+        const wordLength = +($(`#tag-feature-bits-word-length-${containerUUID}`).val() || 0);
+        if (wordLength) {
+            featureBits.word_length = wordLength;
+        }
+        tags.push({
+            tagName: 'feature_bits',
+            data: featureBits
         });
     }
 
@@ -517,11 +622,16 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
     const recoveryFlag = data.invoice.recoveryFlag;
     $(`#recovery-flag-${containerUUID}`).val(recoveryFlag === undefined ? '' : recoveryFlag);
 
-    const tags = data.invoice.tags;
+    const tags = data.invoice.tags || [];
 
     const paymentHash = tags.find(t => t.tagName === 'payment_hash');
     $(`#tag-payment-hash-selected-${containerUUID}`).prop('checked', !!paymentHash);
     $(`#tag-payment-hash-data-${containerUUID}`).val(paymentHash ? paymentHash.data : '');
+
+    const paymentSecret = tags.find(t => t.tagName === 'payment_secret');
+    $(`#tag-payment-secret-selected-${containerUUID}`).prop('checked', !!paymentSecret);
+    $(`#tag-payment-secret-data-${containerUUID}`).val(paymentSecret ? paymentSecret.data : '');
+
 
     const description = tags.find(t => t.tagName === 'description');
     $(`#tag-description-selected-${containerUUID}`).prop('checked', !!description);
@@ -559,5 +669,34 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
         });
     }
 
+    $(`#tag-feature-bits-container-${containerUUID}`).empty();
+    const featureBits = tags.find(t => t.tagName === 'feature_bits');
+    $(`#tag-feature-bits-selected-${containerUUID}`).prop('checked', !!featureBits);
+    invoiceComponent.FEATUREBIT_ORDER.forEach(featureBit => {
+        const feature = (featureBits && featureBits.data && featureBits.data[featureBit]) || {};
+        const isRequired = feature.required === true ? 'checked' : '';
+        const isSupported = feature.supported === true ? 'checked' : '';
+
+        const description = invoiceComponent.FEATUREBIT_DESCRIPTION[featureBit] || '';
+        $(`#tag-feature-bits-container-${containerUUID}`).append(`
+            <tr class="d-flex">
+                <td class="col-sm-6">
+                    <span>${featureBit}</span>
+                    <a data-toggle="popover" data-trigger="hover" title="${featureBit}" data-content="${description}">
+                        <i class="fas ml-2 fa-info-circle pointer"></i>
+                    </a>
+                </td>
+                <td class="col-sm-3">
+                    <input id="tag-feature-bits-${featureBit}-required-${containerUUID}" type="checkbox" ${isRequired} class="form-check-input ml-5" value="">
+                </td>
+                <td class="col-sm-3">
+                    <input id="tag-feature-bits-${featureBit}-supported-${containerUUID}" type="checkbox" ${isSupported} class="form-check-input ml-5" value="">
+                </td>
+            </tr>
+        `);
+    })
+
+    const wordLength = featureBits && featureBits.data && featureBits.data.word_length;
+    $(`#tag-feature-bits-word-length-${containerUUID}`).val(wordLength || '');
 
 }
