@@ -369,6 +369,7 @@ invoiceComponent.createNew = function createNew(op) {
                                     </td>
                                     <td class="col-sm-7"></td>
                                 </tr>
+
                                 <tr class="d-flex mr-2 mt-2">
                                     <td class="col-sm-2 border-0"> </td>
                                     <td class="col-sm-10 border-0">                                        
@@ -383,9 +384,23 @@ invoiceComponent.createNew = function createNew(op) {
                                             <tbody id="tag-feature-bits-container-${op.containerUUID}">
                 
                                             </tbody>
+                                            <tfoot>
+                                                <tr class="d-flex">
+                                                    <td class="col-sm-6">                                        
+                                                        <label>Word Length</label>
+                                                    </td>
+                                                    <td class="col-sm-3"> </td>
+                                                    <td class="col-sm-3">                                        
+                                                        <input type="number" id="tag-feature-bits-word-length-${op.containerUUID}"  class="form-control asm">
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </td>
                                 </tr>
+
+                               
 
                             </tbody>
                         </table>
@@ -421,8 +436,6 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
     invoice.network = invoiceComponent.NETWORKS[network];
 
     // invoice.signature = 
-
-
 
     const millisatoshis = $(`#amount-${containerUUID}`).val();
     if (millisatoshis) {
@@ -521,17 +534,23 @@ invoiceComponent.htmlToData = function htmlToData(containerUUID) {
         });
     }
 
-    const featureBits = {};
-    invoiceComponent.FEATUREBIT_ORDER.forEach(featureBit => {
-        featureBits[featureBit] = {
-            supported: $(`#tag-feature-bits-${featureBit}-supported-${containerUUID}`).prop('checked'),
-            required: $(`#tag-feature-bits-${featureBit}-required-${containerUUID}`).prop('checked')
+    if ($(`#tag-feature-bits-selected-${containerUUID}`).prop('checked')) {
+        const featureBits = {};
+        invoiceComponent.FEATUREBIT_ORDER.forEach(featureBit => {
+            featureBits[featureBit] = {
+                supported: $(`#tag-feature-bits-${featureBit}-supported-${containerUUID}`).prop('checked'),
+                required: $(`#tag-feature-bits-${featureBit}-required-${containerUUID}`).prop('checked')
+            }
+        });
+        const wordLength = +($(`#tag-feature-bits-word-length-${containerUUID}`).val() || 0);
+        if (wordLength) {
+            featureBits.word_length = wordLength;
         }
-    });
-    tags.push({
-        tagName: 'feature_bits',
-        data: featureBits
-    });
+        tags.push({
+            tagName: 'feature_bits',
+            data: featureBits
+        });
+    }
 
     if (tags.length) {
         invoice.tags = tags
@@ -621,6 +640,7 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
 
     $(`#tag-feature-bits-container-${containerUUID}`).empty();
     const featureBits = tags.find(t => t.tagName === 'feature_bits');
+    $(`#tag-feature-bits-selected-${containerUUID}`).prop('checked', !!featureBits);
     invoiceComponent.FEATUREBIT_ORDER.forEach(featureBit => {
         const feature = (featureBits && featureBits.data && featureBits.data[featureBit]) || {};
         const isRequired = feature.required === true ? 'checked' : '';
@@ -639,5 +659,8 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
             </tr>
         `);
     })
+
+    const wordLength = featureBits && featureBits.data && featureBits.data.word_length;
+    $(`#tag-feature-bits-word-length-${containerUUID}`).val(wordLength || '');
 
 }
