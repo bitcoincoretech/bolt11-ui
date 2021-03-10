@@ -38,6 +38,17 @@
                 $(`#bottom-menu`).html(invoiceComponent.createExternalMenu({ containerUUID: invoiceContainerUUID }));
             });
 
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('invoice')) {
+                try {
+                    const invoice = lightningPayReq.decode(urlParams.get('invoice'),);
+                    invoiceComponent.dataToHtml(invoiceContainerUUID, { invoice })
+                } catch (err) {
+                    console.error(err)
+                    openToasty('Decode BOLT 11 Invoice', err.message, true);
+                }
+            }
+
             setTimeout(() => {
                 $('#feedbackButton').popover('show');
                 setTimeout(() => {
