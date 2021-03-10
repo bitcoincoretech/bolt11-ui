@@ -8,6 +8,9 @@ const invoiceComponent = function () {
         $(`#${parentContainerId}`).html(invoiceComponent.createNew({
             containerUUID
         }));
+        invoiceComponent.dataToHtml(containerUUID, {
+            invoice: {}
+        });
     }
 
     function openDecodeInvoiceModal(containerUUID) {
@@ -50,6 +53,12 @@ const invoiceComponent = function () {
                     </div>
                     <input id="private-key-${containerUUID}" type="password" class="form-control">                      
                 </div>
+                <div class="form-check-inline mt-3">
+                    <label class="form-check-label">
+                        <input id="add-defaults-${containerUUID}" type="checkbox" checked class="form-check-input">
+                        Add Defaults (description, expire time, and min cltv)
+                    </label>
+                </div>
                 <textarea id="encoded-invoice-${containerUUID}" readonly rows="10" style="width: 100%" class="mt-5"></textarea>`
             $('#modal-body').append(privateKeyInput);
 
@@ -58,15 +67,22 @@ const invoiceComponent = function () {
             openToasty('Encode BOLT 11 Invoice', err.message, true);
         }
 
-        $('#modal-confirm-button').click(function () {});
+        $('#modal-confirm-button').click(function () {
+            const paymentRequest = $(`#encoded-invoice-${containerUUID}`).val();
+            if (paymentRequest) {
+                $(`#payment-request-${containerUUID}`).val(paymentRequest);
+            }
+        });
     }
 
     function encodeInvoice(containerUUID) {
         try {
             const invoiceData = invoiceComponent.htmlToData(containerUUID);
-            let encodedInvoice = lightningPayReq.encode(invoiceData);
+            const addDefaults = $(`#add-defaults-${containerUUID}`).prop('checked');
+            let encodedInvoice = lightningPayReq.encode(invoiceData, addDefaults);
 
             const privateKey = $(`#private-key-${containerUUID}`).val();
+
             if (privateKey) {
                 encodedInvoice = lightningPayReq.sign(encodedInvoice, privateKey);
             }
@@ -122,7 +138,7 @@ const invoiceComponent = function () {
         'payment_secret',
         'basic_mpp',
         'option_support_large_channel'
-      ]
+    ]
 
     return {
         openDecodeInvoiceModal,

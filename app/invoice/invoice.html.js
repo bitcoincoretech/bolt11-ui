@@ -108,7 +108,7 @@ invoiceComponent.createNew = function createNew(op) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Int32</span>
                             </div>
-                            <input type="number" id="expire-${op.containerUUID}" value="3600" min="0" class="form-control asm">
+                            <input type="number" id="expire-${op.containerUUID}" value="" min="0" class="form-control asm">
                         </div>
                     </td>
                     <td class="col-sm-4">
