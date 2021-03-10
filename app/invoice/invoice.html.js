@@ -305,8 +305,8 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-7"> </td>
                                 </tr>
                                 <tr class="d-flex mr-2 mt-2">
-                                    <td class="col-sm-2"> </td>
-                                    <td class="col-sm-10 small background-grey shadow p-4 mb-4">
+                                    <td class="col-sm-2 border-0"> </td>
+                                    <td class="col-sm-10 small background-grey shadow p-4 mb-4 border-0">
                                         <div class="row">
                                             <div class="col-sm-2">Address</div>
                                             <div class="col-sm-10">
@@ -344,8 +344,8 @@ invoiceComponent.createNew = function createNew(op) {
                                 </tr>
 
                                 <tr class="d-flex mr-2 mt-2">
-                                    <td class="col-sm-2"> </td>
-                                    <td class="col-sm-10">
+                                    <td class="col-sm-2 border-0"> </td>
+                                    <td class="col-sm-10 border-0">
                                         <div id="routing-nodes-container-${op.containerUUID}" class="col-sm-12">
                                         </div>
                                         <div class="col-sm-12"> 
@@ -370,8 +370,8 @@ invoiceComponent.createNew = function createNew(op) {
                                     <td class="col-sm-7"></td>
                                 </tr>
                                 <tr class="d-flex mr-2 mt-2">
-                                    <td class="col-sm-2"> </td>
-                                    <td class="col-sm-10">                                        
+                                    <td class="col-sm-2 border-0"> </td>
+                                    <td class="col-sm-10 border-0">                                        
                                         <table class="table table-sm border-left border-bottom shadow p-4 mb-4">
                                             <thead class="thead-light">
                                                 <tr class="d-flex">
