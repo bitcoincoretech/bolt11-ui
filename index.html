@@ -26,6 +26,9 @@
 
     <script>
         $(document).ready(function () {
+            $(function () {
+                $('[data-toggle="popover"]').popover()
+            })
 
             const invoiceContainerUUID = uuidv4();
             $(`#invoiceCheckContainer`).html(invoiceComponent.createNew({ containerUUID: invoiceContainerUUID }));

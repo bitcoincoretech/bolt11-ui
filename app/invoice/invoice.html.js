@@ -5,7 +5,8 @@ invoiceComponent.createNew = function createNew(op) {
         <table class="table table-sm border-bottom">
             <tbody>
                 <tr id="payment-request-row-${op.containerUUID}" class="d-flex">
-                    <td class="col-sm-2"><label>Payment Request</label></td>
+                    <td class="col-sm-2"><label>Payment Request</label>
+                    </td>
                     <td class="col-sm-10">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -180,6 +181,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-payment-hash-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-payment-hash-number-${op.containerUUID}" value="1" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Payment Hash" data-content="256-bit SHA256 payment_hash. Preimage of this provides proof of payment">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -197,6 +201,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-payment-secret-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-payment-secret-number-${op.containerUUID}" value="16" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Payment Secret" data-content="This 256-bit secret prevents forwarding nodes from probing the payment recipient.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -213,6 +220,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-description-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-description-number-${op.containerUUID}" value="13" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Description" data-content="Short description of purpose of payment (UTF-8), e.g. '1 cup of coffee' or 'ナンセンス 1杯'">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -229,6 +239,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-payee-node-key-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-payee-node-key-number-${op.containerUUID}" value="19" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Public Key" data-content="33-byte public key of the payee node">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -246,6 +259,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-purpose-commit-hash-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-purpose-commit-hash-number-${op.containerUUID}" value="23" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Putpose of Payment" data-content="256-bit description of purpose of payment (SHA256). This is used to commit to an associated description that is over 639 bytes, but the transport mechanism for the description in that case is transport specific and not defined here.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -263,6 +279,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-expire-time-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-expire-time-number-${op.containerUUID}" value="6" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Expiry Time" data-content="Expiry time in seconds (big-endian). Default is 3600 (1 hour) if not specified.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -280,6 +299,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-min-final-cltv-expiry-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-min-final-cltv-expiry-number-${op.containerUUID}" value="24" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Min Final CLTV Expiry" data-content="To use for the last HTLC in the route. Default is 18 if not specified.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -297,6 +319,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-fallback-address-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-fallback-address-number-${op.containerUUID}" value="9" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Fallback Address" data-content="Fallback on-chain address: for Bitcoin, this starts with a 5-bit version and contains a witness program or P2PKH or P2SH address.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -335,6 +360,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-routing-info-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-routing-info-number-${op.containerUUID}" value="3" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Routing Info" data-content="One or more entries containing extra routing information for a private route; there may be more than one r field">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -362,6 +390,9 @@ invoiceComponent.createNew = function createNew(op) {
                                                 <input id="tag-feature-bits-selected-${op.containerUUID}" type="checkbox" class="form-check-input" value="">
                                             </label>
                                             <input id="tag-feature-bits-number-${op.containerUUID}" value="5" disabled="true" class="form-control asm">
+                                            <a data-toggle="popover" data-trigger="hover" title="Feature Bits" data-content="One or more 5-bit values containing features supported or required for receiving this payment.">
+                                                <i class="fas ml-2 fa-info-circle pointer"></i>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="col-sm-3">
@@ -645,14 +676,19 @@ invoiceComponent.dataToHtml = function dataToHtml(containerUUID, data) {
         const feature = (featureBits && featureBits.data && featureBits.data[featureBit]) || {};
         const isRequired = feature.required === true ? 'checked' : '';
         const isSupported = feature.supported === true ? 'checked' : '';
+
+        const description = invoiceComponent.FEATUREBIT_DESCRIPTION[featureBit] || '';
         $(`#tag-feature-bits-container-${containerUUID}`).append(`
             <tr class="d-flex">
                 <td class="col-sm-6">
                     <span>${featureBit}</span>
+                    <a data-toggle="popover" data-trigger="hover" title="${featureBit}" data-content="${description}">
+                        <i class="fas ml-2 fa-info-circle pointer"></i>
+                    </a>
                 </td>
                 <td class="col-sm-3">
                     <input id="tag-feature-bits-${featureBit}-required-${containerUUID}" type="checkbox" ${isRequired} class="form-check-input ml-5" value="">
-                    </td>
+                </td>
                 <td class="col-sm-3">
                     <input id="tag-feature-bits-${featureBit}-supported-${containerUUID}" type="checkbox" ${isSupported} class="form-check-input ml-5" value="">
                 </td>
